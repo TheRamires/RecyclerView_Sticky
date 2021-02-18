@@ -60,6 +60,30 @@ public class BlankFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
+        //Decor------------------------------------
+        RecyclerSectionItemDecoration sectionItemDecoration =
+                new RecyclerSectionItemDecoration(getResources().getDimensionPixelSize(R.dimen.recycler_section_header_height),
+                        true, // true for sticky, false for not
+                        new RecyclerSectionItemDecoration.SectionCallback() {
+                            @Override
+                            public boolean isSection(int position) {
+                                return position == 0
+                                        || list.get(position)
+                                        //.getLastName()
+                                        .charAt(0) != list.get(position - 1)
+                                        //.getLastName()
+                                        .charAt(0);
+                            }
+
+                            @Override
+                            public CharSequence getSectionHeader(int position) {
+                                return list.get(position)
+                                        //.getLastName()
+                                        .subSequence(0, 3); //.subSequence(0, 1);   //•установление заголовка
+                            }
+                        });
+        recyclerView.addItemDecoration(sectionItemDecoration);
+
         // Inflate the layout for this fragment
         return view;
     }
